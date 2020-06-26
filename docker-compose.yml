@@ -1,0 +1,21 @@
+version: "2"
+services:
+    server:
+        container_name: server
+        restart: always
+        image: authserviceapp.azurecr.io/auth-service_server
+        build: ./server
+        command: npm run start
+        ports:
+            - "8080:8080"
+    client:
+        container_name: client
+        restart: always
+        image: authserviceapp.azurecr.io/auth-service_client
+        build: ./client
+        command: npm start
+        depends_on: 
+            - server
+        ports:
+            - "3000:3000"
+        tty: true
